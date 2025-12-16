@@ -269,10 +269,17 @@ test2 = "0123456789"
 # 다음 문자열에서 홀수인덱스만 추출한다음 거꾸로 출력하시오 97531
 
 
+print(test2[::2])
+print(test2[::-1])
+print(test2[8:3:-1])
+print(test2[1::2][::-1])
+
 
 test3 = "snfklsafnlwenffsdmfl;sdmfdiowfnewinbbsdfsefew"
 # 다음 문자열의 절반 앞부분을 출력하시오
 # 다음 문자열에서 가운데 3글자를 출력하시오 (test3 의 길이는 홀수이다.)
+
+
 
 
 # 함수만들기
