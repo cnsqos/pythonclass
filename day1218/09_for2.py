@@ -176,12 +176,23 @@ english = [90, 100, 95]
 
 
 
+for i in range(1,5):
+    print(" " * (5-i) + '*' * (i*2 -1))
+
+
+    print("\n")
+
+
 height = 5
 width = 2 * height - 1
 
 for i in range(height):
     stars = '*' * (2*i + 1)
     print(f'{stars:^{width}}')
+
+
+print("\n")
+
 
 
 height = 5
@@ -201,3 +212,40 @@ for i in range(-(height-1), height):
     stars = 2 * (height - spaces) - 1
 
     print(' ' * spaces + '*' * stars)
+
+
+print("\n")
+
+
+for a in range(1,10):
+    b = abs(a-5)
+    c = abs(b-5)*2 -1
+
+
+    print(' ' * b + '*' * c)
+
+
+print("\n")
+
+arr = [5,3,8,1,2]
+n = len(arr) # 5
+
+for i in range (n-1): # 4라운드 마다 진행 0 1 2 3
+    for j in range (0, n - i - 1): #라운드마다 4 3 2 1번
+        if arr[j] > arr[j+1]:
+            arr[j], arr[j+1] = arr[j+1], arr[j]
+
+print(arr)
+
+
+arr = [5,3,8,1,2]
+n = len(arr)
+
+for i in range(n-1):
+    min_idx = i
+    for j in range(i+1, n):
+        if arr[j] < arr[min_idx]:
+            min_idx = j
+    arr[i], arr[min_idx] = arr[min_idx], arr[i]
+
+print(arr)
