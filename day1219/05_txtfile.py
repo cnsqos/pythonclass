@@ -43,15 +43,60 @@ if not os.path.exists(path):
 
 
 
-print("\n======== readlines 로 읽기 ========\n")
+# print("\n======== readlines 로 읽기 ========\n")
 
-f = open("./day1219/새파일.txt",'r',encoding="utf-8")
-lines = f.readlines() # 첫 번째 출을 반환
-print(lines)
+# f = open("./day1219/새파일.txt",'r',encoding="utf-8")
+# lines = f.readlines() # 첫 번째 출을 반환
+# print(lines)
 
-for line in lines:
-    line = line.strip()
-    print(line)
+# for line in lines:
+#     line = line.strip()
+#     print(line)
+
+# f.close()
+
+
+
+# print("\n======== read 로 읽기 ========\n")
+
+# f = open("./day1219/새파일.txt",'r',encoding="utf-8")
+# data = f.read() #파일 내용 전체를 문자열로 반환
+# print(data)
+# f.close()
+
+
+
+# print("\n======== 객체로 읽기 ========\n")
+
+# f = open("./day1219/새파일.txt",'r',encoding="utf-8")
+# for line in f:
+#     print(line)
+# f.close()
+
+
+
+# print("\n======== 추가하기 모드 ========\n")
+
+
+# f = open("./day1219/새파일.txt",'a',encoding="utf-8")
+# for i in range(11,21):
+#     data = f'{i}번째 줄입니다\n'
+#     f.write(data)
+
+# f.close()
+
+
+print("\n======== with문과 함께 사용하기 ========\n")
+
+
+f = open("./day1219/새파일.txt",'w',encoding="utf-8")
+f.write("Life is too short, you need python")
 
 f.close()
+
+# 위 내용 이랑 똑같이 작용
+
+with open("./day1219/poo.txt",'w', encoding='utf-8') as f:
+    f.write("Life is too short, you need python")
+
 
