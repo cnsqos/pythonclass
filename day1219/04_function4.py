@@ -64,8 +64,3 @@ a = [1, 2, 3, 4]
 result = [num * 3 for num in a if num % 2 == 0]
 print(result)
 print()
-
-
-# 람다 + 맵 + 필터 방식으로 똑같이 구현하기
-
-result3 = list(map(lambda num: num *3, filter(lambda)))
