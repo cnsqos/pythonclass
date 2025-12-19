@@ -86,17 +86,26 @@ if not os.path.exists(path):
 # f.close()
 
 
-print("\n======== with문과 함께 사용하기 ========\n")
+# print("\n======== with문과 함께 사용하기 ========\n")
 
 
-f = open("./day1219/새파일.txt",'w',encoding="utf-8")
-f.write("Life is too short, you need python")
+# f = open("./day1219/새파일.txt",'w',encoding="utf-8")
+# f.write("Life is too short, you need python")
 
-f.close()
+# f.close()
 
-# 위 내용 이랑 똑같이 작용
+# # 위 내용 이랑 똑같이 작용
 
-with open("./day1219/poo.txt",'w', encoding='utf-8') as f:
-    f.write("Life is too short, you need python")
+# with open("./day1219/poo.txt",'w', encoding='utf-8') as f:
+#     f.write("Life is too short, you need python")
 
 
+print("\n======== os.path.exists ========\n")
+
+import os
+
+file_path = './poo.txt'
+
+if not os.path.exists(file_path):
+    with open(file_path,'w',encoding='utf-8') as f:
+        f.write("Life is too short, you need python")
