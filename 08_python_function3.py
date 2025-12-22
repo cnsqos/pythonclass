@@ -51,7 +51,7 @@ print("\n ======== tuple ========") # 반
 
 print(tuple('abc'))
 print(tuple([1,2,3]))
-print(tuple((1,2,3)))
+print(tuple((4,5,6)))
 
 print("\n ======== type ========")
 
