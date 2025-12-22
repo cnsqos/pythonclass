@@ -97,7 +97,7 @@ def play_blackjack():
     player_score = calculate_score(player_hand)
     if computer_score > 21:
         time.sleep(1.2)
-        print("\n*컴퓨터 버스트ㅋㅋ 플레이어 승리^^!")
+        print("\n컴퓨터 버스트ㅋㅋ 플레이어 승리^^!")
         return "win"
     elif player_score > computer_score:
         time.sleep(1.2)
@@ -178,3 +178,5 @@ while player_balance > 0 and computer_balance > 0:
     if again != 'y':
         print("게임 종료!")
         break
+
+    
