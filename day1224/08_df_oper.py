@@ -13,6 +13,7 @@ pd.set_option('display.width', 200)
 
 titanic = sns.load_dataset('titanic')
 print(titanic.head(100))
+print()
 titanic.info()
 
 # survived  생존여부 (1 / 0)
@@ -39,3 +40,63 @@ df = titanic.loc[:, ['age', 'fare']]
 print(df)
 print()
 print(df.head())
+
+
+
+
+print("\n======= 데이터 프레임에 숫자 연산 =======\n")
+
+addition = df +10
+print(addition.head())
+
+
+print("\n======= 데이터 프레임끼리 연산=======\n")
+
+print(df.tail()) # 마지막 5개 조회
+print()
+
+
+subtraction = df - addition
+print(subtraction.tail)
+print()
+
+
+print("\n======= NaN 값 채우기 fillna =======\n")
+
+sample1 = subtraction.tail().fillna(0)
+print()
+print(sample1)
+print()
+
+sample1.info()
+print()
+
+print(df.tail())
+print()
+print(addition.tail())
+print()
+
+
+print("\n=====================\n")
+
+sample2 = df.sub(addition, fill_value=0)
+print(sample2.tail())
+print()
+
+print("\n=====================\n")
+
+print(titanic.head())
+print()
+titanic.info()
+
+
+print("\n=====================\n")
+
+print(titanic.head())
+print()
+titanic.info()
+titanic['age'] = titanic['age'].fillna(0)
+print()
+titanic.info()
+
+
