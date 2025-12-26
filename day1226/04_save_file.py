@@ -93,3 +93,8 @@ print(df2)
 print()
 
 
+with pd.ExcelWriter("./data/df_excelwriter.xlsx") as my_writer:
+    df1.to_excel(my_writer, sheet_name="grade")
+    df1.to_excel(my_writer, sheet_name="numbers")
+
+    
