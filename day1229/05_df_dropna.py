@@ -77,3 +77,26 @@ print()
 most_freq = df['embark_town'].value_counts(dropna=True).idxmax()
 print('최빈값은:', most_freq)
 print()
+
+# mode() 는 시리즈의 최빈값을 시리즈로 반환
+most_freq2 = df['embark_town'].mode()[0]
+print('최빈값은:', most_freq2)
+print()
+
+
+# embark_town 열의 825 행부터 830 행 조회
+df_et = df['embark_town'].iloc[825:831]
+print(df_et)
+print()
+
+df_et2 = df.loc[825:830, 'embark_town']
+print(df_et2)
+print()
+
+df_et3 = df['embark_town'][825:830]
+print(df_et3)
+print()
+
+df_et4 = df.iloc[825:830]['embark_town']
+print(df_et4)
+print()
