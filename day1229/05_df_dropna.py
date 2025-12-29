@@ -132,3 +132,4 @@ df2['embark_town'] = df2['embark_town'].bfill()
 print(df2['embark_town'][825:831])
 print()
 
+

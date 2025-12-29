@@ -106,6 +106,12 @@ def main_game():
         win_streak = 0
         show_rules = True
 
+        # ===== 추가된 통계 변수 =====
+        total_games = 0
+        player_wins = 0
+        computer_wins = 0
+        max_win_streak = 0
+
         while player_balance > 0 and computer_balance > 0:
             time.sleep(1)
 
@@ -148,12 +154,11 @@ def main_game():
             else:
                 if win_streak >= 2:
                     computer_bet = min(computer_balance, random.randint(30, 70))
-                    print(f"\n⚡ 플레이어 연승 감지! 컴퓨터 공격적 베팅 ⚡")
                 else:
                     if computer_balance > player_balance:
                         computer_bet = min(computer_balance, random.randint(20, 50))
                     else:
-                        computer_bet = min(computer_balance, random.randint(10, 30))
+                        computer_bet = min(computer_balance, random.randint(15, 30))
             print(f"\n컴퓨터가 {computer_bet} 코인을 베팅했습니다.")
             time.sleep(1)
 
@@ -161,6 +166,7 @@ def main_game():
             computer_all_in = (computer_bet == computer_balance)
 
             # ===== 게임 시작 =====
+            total_games += 1
             result = play_blackjack()
 
             # ===== 결과 반영 =====
@@ -172,6 +178,8 @@ def main_game():
                 player_balance += player_bet + computer_bet + blackjack_bonus
                 computer_balance -= computer_bet
                 win_streak += 1
+                player_wins += 1
+                max_win_streak = max(max_win_streak, win_streak)
                 print(f"\n🂡 블랙잭 보너스 +{blackjack_bonus} 코인!")
             elif result == "win":
                 bonus = player_bet * 0.5 if player_all_in else 0
@@ -180,6 +188,8 @@ def main_game():
                 player_balance += player_bet + computer_bet + bonus
                 computer_balance -= computer_bet + (player_bet / 2)
                 win_streak += 1
+                player_wins += 1
+                max_win_streak = max(max_win_streak, win_streak)
             elif result == "lose":
                 bonus = computer_bet * 0.5 if computer_all_in else 0
                 if computer_all_in:
@@ -187,6 +197,7 @@ def main_game():
                 player_balance -= player_bet + (computer_bet / 2)
                 computer_balance += computer_bet + player_bet + bonus
                 win_streak = 0
+                computer_wins += 1
             else:
                 win_streak = 0
 
@@ -201,7 +212,11 @@ def main_game():
             player_balance = max(0, player_balance)
             computer_balance = max(0, computer_balance)
 
+            win_rate = (player_wins / total_games) * 100 if total_games > 0 else 0
+
             print(f"\n**현재 코인** \n[플레이어: {player_balance}/ 컴퓨터: {computer_balance}]")
+            print(f"📊 판 수: {total_games} | 🏆 플레이어 승: {player_wins} | 💀 컴퓨터 승: {computer_wins}")
+            print(f"🔥 최고 연승: {max_win_streak} | 📈 승률: {win_rate:.1f}%")
 
             # ===== 종료 조건 =====
             if player_balance <= 0:
