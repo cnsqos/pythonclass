@@ -100,3 +100,35 @@ print()
 df_et4 = df.iloc[825:830]['embark_town']
 print(df_et4)
 print()
+
+
+print('\n=====================\n')
+
+df['embark_town'] = df['embark_town'].fillna(most_freq)
+df['embark_town'] = df['embark_town'].fillna('S')
+df.info()
+print()
+
+df_et4 = df.iloc[825:831]['embark_town']
+print(df_et4)
+
+
+print('\n==========근처 값으로 대체===========\n')
+
+df = sns.load_dataset('titanic')
+
+df2 = df.copy()
+
+print(df['embark_town'][825:831])
+print()
+
+# 이전행 (828행) 똑같이 채우기.
+df['embark_town'] = df['embark_town'].ffill()
+print(df['embark_town'][825:831])
+print()
+
+# 이후행 (830행) 똑같이 채우기.
+df2['embark_town'] = df2['embark_town'].bfill()
+print(df2['embark_town'][825:831])
+print()
+
