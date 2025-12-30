@@ -48,10 +48,67 @@ print('\n=========== pd.cut ============')
 
 
 # bin_dividers 세구간 (50,100),[100,200] , [200,300]
-
 bin_names = ['저출력', '보통출력', '고출력']
 
-# pd.cut 함수로 각 데이터를 3개의 bin에 할당
-df['']
 
+# pd.cut 함수로 각 데이터를 3개의 bin에 할당
+df['hp_bin'] = pd.cut(x=df['horsepower'],
+                      bins=bin_dividers,
+                      labels=bin_names,
+                      include_lowest=True) # a,b
+print(df.head(100))
+df.info() #hp_bin >>> category
+print()
+
+
+
+print('\n=========== 더미변수 ============')
+
+# hp_bin 컬럼의 범주형 데이터를 더미 변수로 변환
+horsepower_duummies = pd.get_dummies(df['hp_bin'])
+print(horsepower_duummies.head(15))
+print(type(horsepower_duummies))
+print()
+
+
+# hp_bin 컬럼의 범주형 데이터를 더미 변수로 변환
+horsepower_duummies = pd.get_dummies(df['hp_bin'], dtype=float, drop_first=True)
+print(horsepower_duummies.head(15))
+print()
+
+
+
+print('\n=========== 레이블 인코더 ============')
+
+print(df)
+
+# pip install scikit-learn
+
+# from sklearn import preprocessing
+
+# label_enconder = preprocessing.LabelEncoder()
+
+# onehot_labeled = label_enconder.fit_transform(df['hp_bin'])
+# print(onehot_labeled)
+# print(type(onehot_labeled))
+# print()
+
+# onehot_labeled = pd.Series(label_enconder.fit_transform(df['hp_bin']))
+# print(onehot_labeled)
+# print(type(onehot_labeled))
+# print()
+
+
+
+# df['hp_bin_lb'] = onehot_labeled
+# df.info()
+# print(df.head(30))
+
+
+
+from sklearn.preprocessing import LabelEncoder
+
+df['hp_bin_lb'] = LabelEncoder().fit_transform(df['hp_bin'])
+df.info()
+print(df.head(30))
 
