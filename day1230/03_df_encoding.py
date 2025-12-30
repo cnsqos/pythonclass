@@ -112,3 +112,32 @@ df['hp_bin_lb'] = LabelEncoder().fit_transform(df['hp_bin'])
 df.info()
 print(df.head(30))
 
+
+print('\n======== 원핫 인코더 ========\n')
+
+from sklearn.preprocessing import OneHotEncoder
+
+onehot_encoder = OneHotEncoder(sparse_output=False) # True / False
+# 희소행렬
+onehot_fitted = onehot_encoder.fit_transform(df[['hp_bin']])
+
+print(onehot_fitted)
+print()
+print(type(onehot_fitted))
+
+
+encoded_df = pd.DataFrame(
+    onehot_fitted,
+    columns=onehot_encoder.get_feature_names_out(['hp_bin'])
+)
+
+print(encoded_df)
+
+#============================
+
+print()
+print(df['hp_bin'])
+print(type(df['hp_bin']))
+print()
+print(df[['hp_bin']])
+print(type(df[['hp_bin']]))
