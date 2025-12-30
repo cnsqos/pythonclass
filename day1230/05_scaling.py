@@ -64,3 +64,13 @@ df['horsepower_std'] = (df['horsepower'] - df['horsepower'].mean()) / df['horsep
 print(df['horsepower_std'].head(100))
 print()
 
+
+print('\n========= 사이킷런 Standard Scaling =========\n')
+
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+df['horsepower_minmax'] = scaler.fit_transform(df[['horsepower']])
+print(df['horsepower_minmax'])
+print()
+
