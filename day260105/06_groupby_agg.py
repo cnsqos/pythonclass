@@ -76,12 +76,28 @@ agg_mean = grouped.aggregate('mean', numeric_only = True)
 print(agg_mean)
 print()
 
+
 # agg 로도 쓸 수 있다
 agg_mean2 = grouped.agg('mean', numeric_only = True)
 print(agg_mean2)
 
-# 여러 집계함수를 적용
-agg_all = grouped.agg(['min','max'])
+
+# (원본에 문자열 male female)
+# agg_mean2 = grouped.agg('mean') # 문자열은 mean이 안되므로 오류
+# print(agg_mean2)
+
+# max/min 은 문자열에서도 작동 가능해서 오류x
+agg_mean2 = grouped.agg('max') # numeric_only = True 이거 추가 해줘도 작동함
+print(agg_mean2)
+print()
+
+
+# 여러 집계함수를 적용 
+# agg_all = grouped.agg(['mean', 'std']) # 이 경우는 어떻게 해도 안됨
+# print(agg_all)
+# print()
+
+agg_all = grouped.agg(['min','max']) # numeric_only = True 이 옵션 자체가 작동 x
 print(agg_all)
 print()
 
