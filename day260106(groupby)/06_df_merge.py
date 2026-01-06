@@ -99,3 +99,25 @@ print(sdf2)
 
 # one-to-one 조인
 result_one_to_one = pd.merge(sdf1, sdf2, on='employee')
+print(result_one_to_one)
+print()
+
+sdf3 = pd.DataFrame({'department':['HR','Tech'], 'manager':['Tina', 'Alex']})
+
+print(sdf1)
+print(sdf3)
+
+result_many_to_one = pd.merge(sdf1, sdf3, on='department')
+print(result_many_to_one)
+print()
+
+sdf4 = pd.DataFrame({'department': ['HR', 'HR', 'Tech', 'Tech', 'Finance'],
+                    'task': ['recruiting', 'payroll', 'development', 'support', 'budgeting']})
+print(sdf1)
+print(sdf4)
+print()
+
+result_many_to_one = pd.merge(sdf1, sdf4, on='department')
+print(result_many_to_one) # how = 'outer' 옵션 주면 Finance 나온다.
+print()
+
