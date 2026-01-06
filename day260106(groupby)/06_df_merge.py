@@ -80,7 +80,22 @@ print(value)
 print()
 
 # 두개를 이너 머지 한 상태에서 price < 50000 으로 필터링 한 것과 같다.
-
 value2 = pd.merge(df1, df2)[pd.merge(df1, df2)['price'] < 5000]
 print(value2)
 print()
+
+  
+print('\n=============================\n')
+
+# 데이터프레임 생성
+sdf1 = pd.DataFrame({'employee': ['Alice', 'Sam', 'Eva'],'department':['HR', 'Tech', 'HR']})
+
+sdf2 = pd.DataFrame({'employee': ['Eva', 'Alice', 'Sam'], 'start_year': [2018, 2019, 2020]})
+
+print(sdf1)
+print(sdf2)
+
+# 중복이 있냐 ㅇ벗냐
+
+# one-to-one 조인
+result_one_to_one = pd.merge(sdf1, sdf2, on='employee')
