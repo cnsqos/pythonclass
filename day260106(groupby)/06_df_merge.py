@@ -81,6 +81,6 @@ print()
 
 # 두개를 이너 머지 한 상태에서 price < 50000 으로 필터링 한 것과 같다.
 
-value2 = merge_inner[merge_inner['price'] < 5000]
+value2 = pd.merge(df1, df2)[pd.merge(df1, df2)['price'] < 5000]
 print(value2)
 print()
