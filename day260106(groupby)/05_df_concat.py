@@ -93,3 +93,7 @@ result8 = pd.concat([df1, df2, sr1.to_frame()], ignore_index=True)
 print(result8)
 print()
 
+result9 = pd.concat([sr3, df1,], axis=1)
+print(result9)
+print()
+
