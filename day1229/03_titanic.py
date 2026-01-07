@@ -62,11 +62,13 @@ titanic['FamilySize'] = titanic['sibsp'] + titanic['parch'] + 1
 print(titanic[['sibsp', 'parch', 'FamilySize']].head())
 print()
 
+
 # IsChild 라는 True/False 컬럼 만들어보기 ( 13살 미만 )
 # 불타입의 시리즈를 데이터[] 에 넣으면 True에 해당하는 데이터만 필터링
 titanic['IsChild'] = titanic['age'] < 13
 print(titanic[['age', 'IsChild']].head())
 print()
+
 
 # 남성과 여성의 평균 나이 비교
 # print(titanic.groupby('sex')['age'].mean())
@@ -76,6 +78,8 @@ print("남성 평균 나이:", malemean)
 femalemean = titanic[titanic['sex'] == 'female']['age'].mean()
 print("여성 평균 나이:", femalemean)
 print()
+
+
 
 # id 라는 이름으로 정수 인덱스 주기
 titanic['id'] = range(1, len(titanic) + 1)
