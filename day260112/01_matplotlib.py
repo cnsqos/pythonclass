@@ -80,7 +80,7 @@ plt.plot(sr_one.index, sr_one.values,
          markeredgecolor='blue',
          markeredgewidth=2,
          markersize=10,
-         linestyle='dotted',
+         linestyle='solid',
          label = '서울 -> 경기'
          )
 # plt.title('서울 -> 경기인구이동') 라벨
@@ -90,4 +90,19 @@ plt.xlabel('기간', size=20)
 plt.ylabel('이동 인구수', size=20)
 plt.legend(labels=['서울 -> 경기'])
 plt.show()
+
+
+# 마커 종류 D d s o p > v < 1 2 3 4 x * + _ .
+
+'''
+라인스타일
+dotted :
+solid -
+dashed ---
+dashdot '-. '
+
+축약형식 '컬러 라인' ex)
+'r--' 빨간 점선
+'b-' 파란점선
+'''
 
