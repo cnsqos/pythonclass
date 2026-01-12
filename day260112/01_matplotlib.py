@@ -42,6 +42,52 @@ print()
 
 #===================================
 
-plt.plot(sr_one)
+# sr_one.index = sr_one.index.astype(str)
+# plt.plot(sr_one)
+# plt.show()
+
+
+# 기본 그래프
+plt.plot(sr_one.index, sr_one.values, linestyle='dotted')
+plt.title('서울 -> 경기인구이동')
+plt.xlabel('기간')
+plt.ylabel('이동 인구수')
+plt.show()
+
+
+#============================================
+
+# 기본 그래프 2
+plt.figure(figsize=(14,7))
+plt.plot(sr_one.index, sr_one.values, linestyle='dotted')
+plt.xticks(rotation=90)
+plt.title('서울 -> 경기인구이동')
+plt.xlabel('기간')
+plt.ylabel('이동 인구수')
+plt.legend(labels=['서울 -> 경기'])
+plt.show()
+
+#============================================
+
+# 스타일/마커
+
+plt.style.use('bmh')
+
+plt.figure(figsize=(14,5))
+plt.plot(sr_one.index, sr_one.values,
+         marker='s',
+         markerfacecolor='red',
+         markeredgecolor='blue',
+         markeredgewidth=2,
+         markersize=10,
+         linestyle='dotted',
+         label = '서울 -> 경기'
+         )
+# plt.title('서울 -> 경기인구이동') 라벨
+
+plt.xticks(rotation='vertical', size=10)
+plt.xlabel('기간', size=20)
+plt.ylabel('이동 인구수', size=20)
+plt.legend(labels=['서울 -> 경기'])
 plt.show()
 
