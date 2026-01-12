@@ -68,3 +68,6 @@ plt.plot(df.T)
 plt.legend(labels=['철수','영희'])
 plt.show()
 
+
+
+
