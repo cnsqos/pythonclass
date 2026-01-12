@@ -66,3 +66,7 @@ axes[1,1].annotate('엑스맨', xy=(43,80), size = 20)
 fig.suptitle('여러 그래프들', size=20)
 plt.show()
 
+
+
+
+
