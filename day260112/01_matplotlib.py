@@ -126,7 +126,7 @@ plt.ylabel('이동 인구수', size=20, labelpad=10, color='navy', fontweight='n
 plt.legend(labels=['서울 -> 경기'], loc = 'best', fontsize=15) # upper right, lower left...
 
 plt.ylim(50000,800000)
-plt.xlim(0, 50)
+plt.xlim(-2, 50)
 
 
 # 주석 표시 (화살표)
@@ -136,6 +136,23 @@ plt.annotate('',
              xytext=(2, 295000), #화살표 시작
              xycoords='data',
              arrowprops=dict(arrowstyle = '->', color = 'skyblue', lw = 5))
+
+plt.annotate('',
+             xy=(48, 450000),
+             xytext=(30, 620000),
+             arrowprops=dict(arrowstyle='->', color='lime', lw=5))
+
+plt.annotate('인구 이동 증가(1970-1995)',
+             xy=(5,390000),
+             fontsize=15,
+             rotation=32
+             )
+
+plt.annotate('인구 이동 감소(1995-2017)',
+             xy=(33,510000),
+             fontsize=15,
+             rotation=-19
+             )
 
 
 plt.show()
