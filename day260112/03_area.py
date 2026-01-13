@@ -107,8 +107,30 @@ fig, axes = plt.subplots(2,2, figsize=(10,8))
 
 # 첫 번째 그래프
 
-df['A'].plot(kind='line', ax=axes[0,0], title='Line A')
+df['A'].plot(kind='line', ax=axes[0,0], title='Line A') # df.plot 도 해보기
 axes[0,0].set_title('Line A')
 axes[0,0].set_xlabel('Index')
 axes[0,0].set_ylabel('Value of A')
+
+
+# 두 번째 그래프
+df['B'].plot(kind='bar', ax=axes[0,1])
+axes[0,1].set_title('Bar B')
+axes[0,1].set_xlabel('Index')
+axes[0,1].set_ylabel('Value of B')
+
+# 세 번째 그래프
+df.plot(kind='scatter', x='A', y='B', ax=axes[1,0])
+axes[1,0].set_title('Scatter A vs B')
+axes[1,0].set_xlabel('A')
+axes[1,0].set_ylabel('B')
+
+# 네 번째 그래프
+df[['A','C']].plot(kind='bar', stacked=False, ax=axes[1,1]) # stacked=True 해보기
+axes[1,1].set_title('Stacked A vs C')
+axes[1,1].set_xlabel('Index')
+axes[1,1].set_ylabel('Values')
+
+plt.tight_layout() # 영역 정리
+plt.show()
 
