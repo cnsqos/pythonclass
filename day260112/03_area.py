@@ -104,3 +104,11 @@ df = pd.DataFrame({
 })
 
 fig, axes = plt.subplots(2,2, figsize=(10,8))
+
+# 첫 번째 그래프
+
+df['A'].plot(kind='line', ax=axes[0,0], title='Line A')
+axes[0,0].set_title('Line A')
+axes[0,0].set_xlabel('Index')
+axes[0,0].set_ylabel('Value of A')
+
