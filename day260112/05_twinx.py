@@ -54,7 +54,8 @@ df.info()
 
 # ====================== 그래프 그리기 twinx ======================
 
-
+# print(type(df.index[0]))
+df.index = df.index.astype(str)
 
 ax1 = df[['수력','화력']].plot(kind='bar', figsize=(20,10), width=0.7, stacked=True)
 ax2 = ax1.twinx() # x축 공유
@@ -70,3 +71,5 @@ ax2.set_ylabel('전년 대비 증감율(%)')
 plt.title('북한 전력 발전량 (1990 ~ 2016)', size=30)
 ax1.legend()
 plt.show()
+
+
