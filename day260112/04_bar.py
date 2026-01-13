@@ -110,3 +110,17 @@ plt.ylabel('전입지')
 plt.xlabel('이동 인구 수')
 plt.show()
 
+
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+axes[0].barh(df_total.index, df_total['합계']) # bar / barh
+axes[0].set_title('시도별 전입인구')
+
+df_total.plot(kind='barh', ax=axes[1]) # bar / barh
+axes[1].set_title('시도별 전입인구')
+axes[1].set_xticklabels(['충남', '경북', '강원', '전남'], rotation=45)
+# set_xticklabels 이름만 변경
+
+plt.tight_layout()
+plt.show()
+
