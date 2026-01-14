@@ -23,10 +23,14 @@ sns.kdeplot(x='age', data=titanic, ax=axes['top_left'])
 
 sns.kdeplot(x='age', data=titanic, hue='survived', ax=axes['bottom_left'])
 
+# 영역 색깔 채움 fill = True
 sns.kdeplot(x='age', data=titanic, hue='survived', fill=True, ax=axes['top_center'])
 
+# 그래프 쌓기 multiple='stack'
 sns.kdeplot(x='age', data=titanic, hue='survived', multiple='stack', ax=axes['bottom_center'])
 
+# 그래프 비율 위아래로 채움 multiple='fill'
+# bw_adjust=2.0 경계선 완만함 조절
 sns.kdeplot(x='age', data=titanic, hue='survived', multiple='fill', bw_adjust=2.0, ax=axes['right'])
 
 fig.suptitle('Titanic - Age Distribution')
@@ -37,4 +41,25 @@ axes['top_center'].set_title('KDE (fill=True)')
 axes['bottom_center'].set_title('KDE (multiple - stack)')
 axes['right'].set_title('KDE (multiple - fill)')
 
+
+
+# ==================================================================
+
+fig, ax1 = plt.subplots(figsize=(15, 6), constrained_layout=True)
+
+sns.histplot(data=titanic,x='age',bins=30,stat='count',color='skyblue',alpha=0.6,ax=ax1)
+
+ax1.set_xlabel('Age')
+ax1.set_ylabel('Count (Histogram)', c = 'blue')
+ax1.tick_params(axis='y', labelcolor='blue')
+
+ax2 = ax1.twinx()
+ax2.grid(False)
+
+sns.kdeplot(data=titanic, x='age',color='red', linewidth=2, ax=ax2)
+
+ax2.set_ylabel('Density (KDE)', c = 'red')
+ax2.tick_params(axis='y', labelcolor='red')
+
+ax1.set_title('Titanic Age Distribution: Histogram vs KDE (Dual Y-Axis)')
 plt.show()
