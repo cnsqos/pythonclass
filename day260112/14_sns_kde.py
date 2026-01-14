@@ -23,7 +23,18 @@ sns.kdeplot(x='age', data=titanic, ax=axes['top_left'])
 
 sns.kdeplot(x='age', data=titanic, hue='survived', ax=axes['bottom_left'])
 
-sns.kdeplot(x='age', data=titanic, hue='survived', fill=True, ax=axes['bottom_center'])
+sns.kdeplot(x='age', data=titanic, hue='survived', fill=True, ax=axes['top_center'])
+
+sns.kdeplot(x='age', data=titanic, hue='survived', multiple='stack', ax=axes['bottom_center'])
+
+sns.kdeplot(x='age', data=titanic, hue='survived', multiple='fill', bw_adjust=2.0, ax=axes['right'])
+
+fig.suptitle('Titanic - Age Distribution')
+
+axes['top_left'].set_title('KDE')
+axes['bottom_left'].set_title('KDE (hue)')
+axes['top_center'].set_title('KDE (fill=True)')
+axes['bottom_center'].set_title('KDE (multiple - stack)')
+axes['right'].set_title('KDE (multiple - fill)')
 
 plt.show()
-
