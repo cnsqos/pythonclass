@@ -63,3 +63,4 @@ ax2.tick_params(axis='y', labelcolor='red')
 
 ax1.set_title('Titanic Age Distribution: Histogram vs KDE (Dual Y-Axis)')
 plt.show()
+
