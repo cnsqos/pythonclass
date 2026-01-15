@@ -25,7 +25,6 @@ def draw_top10_legend(ax, top10_df, colors, title):
         frameon=True
     )
 
-
 df = pd.read_csv("data/players_data-2024_2025.csv")
 
 #전처리
@@ -42,10 +41,25 @@ plt.show()
 
 
 # 2. 포지션별 선수 수
+
 fig, ax = plt.subplots(figsize=(6, 4), constrained_layout=True)
 sns.countplot(data=df, x='MainPos', color='coral', ax=ax)
 ax.set_title("포지션별 선수 분포")
-plt.show()
+
+# 비율 계산
+total = len(df)
+for p in ax.patches:  
+    height = p.get_height()  
+    percentage = height / total * 100
+    ax.text(
+        p.get_x() + p.get_width() / 2,  
+        height + 0.5,                   
+        f"{percentage:.1f}%",           
+        ha='center'
+    )
+
+plt.show() 
+
 
 
 # 3. 득점력 분석 (xG vs Gls)
@@ -156,6 +170,7 @@ plt.show()
 
 
 # 9. 패스 정확도 (Cmp% vs PrgP)
+
 fig, ax = plt.subplots(figsize=(9, 6), constrained_layout=True)
 
 sns.scatterplot(
@@ -167,18 +182,29 @@ sns.scatterplot(
     ax=ax
 )
 
-top_pass_acc = df_played.nlargest(10, 'Cmp%').reset_index(drop=True)
+# 두 지표 정규화 후 합산하여 TOP10 선정
+df_played['Cmp_norm'] = df_played['Cmp%'] / df_played['Cmp%'].max()
+df_played['PrgP_norm'] = df_played['PrgP'] / df_played['PrgP'].max()
+df_played['score'] = df_played['Cmp_norm'] + df_played['PrgP_norm']
+
+top10_pass = df_played.nlargest(10, 'score').reset_index(drop=True)
+
 colors = sns.color_palette("tab10", 10)
+for i, row in top10_pass.iterrows():
+    ax.scatter(
+        row['Cmp%'], 
+        row['PrgP'], 
+        color=colors[i], 
+        s=80, 
+        edgecolor='black', 
+        zorder=3
+    )
 
-for i, row in top_pass_acc.iterrows():
-    ax.scatter(row['Cmp%'], row['PrgP'], color=colors[i], s=80, edgecolor='black', zorder=3)
-
-draw_top10_legend(ax, top_pass_acc, colors, "패스 정확도 TOP 10")
+draw_top10_legend(ax, top10_pass, colors, "패스 마스터 TOP 10 ")
 ax.set_title("패스 성공률 vs 전진 패스")
 ax.set_xlabel("패스 성공률 (%)")
 ax.set_ylabel("전진 패스 수")
 plt.show()
-
 
 # 10. 주요 지표 상관관계
 cols = ['Gls', 'Ast', 'xG', 'xA', 'PrgP', 'KP', 'Tkl', 'Int']
@@ -381,6 +407,49 @@ ax.legend()
 
 plt.show()
 
+# 골, 골기대치 비교
+
+team_xg_gls = (
+    df_team
+    .groupby('Squad')[['Gls', 'xG']]
+    .mean()
+)
+
+# 팀 내부 결정력 계산
+team_xg_gls['Gls_minus_xG'] = team_xg_gls['Gls'] - team_xg_gls['xG']
+
+team_xg_gls
+
+fig, ax = plt.subplots(figsize=(6, 5), constrained_layout=True)
+
+colors = ['steelblue', 'indianred']
+
+ax.bar(
+    team_xg_gls.index,
+    team_xg_gls['Gls_minus_xG'],
+    color=colors
+)
+
+for i, v in enumerate(team_xg_gls['Gls_minus_xG']):
+    ax.text(
+        i,
+        v,
+        f"{v:+.2f}",
+        ha='center',
+        va='bottom' if v > 0 else 'top',
+        fontsize=10
+    )
+
+ax.axhline(0, color='black', linewidth=1)
+ax.set_title("팀별 결정력 비교 (Gls - xG)")
+ax.set_ylabel("경기당 득점 효율")
+
+plt.show()
+
+
+
+
+
 # ======================================================
 # Radar Chart 요약 (정규화)
 # ======================================================
@@ -424,3 +493,5 @@ ax.set_title("Radar Chart 요약: Real Madrid vs Barcelona", fontsize=13)
 ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1))
 
 plt.show()
+
+
