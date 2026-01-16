@@ -106,13 +106,20 @@ print(kn49.score(fish_data, fish_target))
 print('\n======= 랜덤 생선 3마리 예측 =======\n')
 print(kn49.predict([[30, 600], [20, 100], [15, 70]]))
 
-# 응용 예제
 
+# 응용 예제
 #for 문 돌려서, 이웃수 5부터 시작해서 50까지 돌리면서 과연 이웃수 몇일 때 스코어 1에서 떨어지나
 
+kn = KNeighborsClassifier()
+kn.fit(fish_data, fish_target)
 
-for k in range(5, 51):
-    kn = KNeighborsClassifier(n_neighbors=k)
-    kn.fit(fish_data, fish_target)
+for n in range(5, 50):
+    kn.n_neighbors = n
+    
     score = kn.score(fish_data, fish_target)
+    
+    if score < 1:
+        print(n, '일때', score)
+        break
+
     
