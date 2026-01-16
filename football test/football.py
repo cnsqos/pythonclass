@@ -422,7 +422,7 @@ team_xg_gls
 
 fig, ax = plt.subplots(figsize=(6, 5), constrained_layout=True)
 
-colors = ['steelblue', 'indianred']
+colors = ['indianred', 'steelblue']
 
 ax.bar(
     team_xg_gls.index,
