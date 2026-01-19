@@ -86,7 +86,7 @@ return accuracy
 
 accuracy_score(실제타겟, 예측타겟)
 accuracy = (pred_target == test_target).mean()
-return accuracy
+return accuracy 
 
 실제값과 예측값만 있으면 된다. accuracy_score 말고도
 Precision, Recall, F1 값 등, 다른 지표에도 바로 적용 가능.
