@@ -33,6 +33,7 @@ df_played = df[df['Min'] >= 900]
 df_def = df_played[df_played['MainPos'] == 'DF']
 
 
+
 # 1. 나이 분포
 fig, ax = plt.subplots(figsize=(8, 5), constrained_layout=True)
 sns.histplot(df['Age'], bins=15, kde=True, color='coral', ax=ax)
@@ -79,6 +80,7 @@ colors = sns.color_palette("tab10", 10)
 
 for i, row in top_scorers.iterrows():
     ax.scatter(row['xG'], row['Gls'], color=colors[i], s=80, edgecolor='black', zorder=3)
+
 
 draw_top10_legend(ax, top_scorers, colors, "득점 TOP 10")
 ax.set_title("기대득점(xG) vs 실제득점")
