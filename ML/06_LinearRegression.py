@@ -126,7 +126,7 @@ print('\n======= 2제곱 모델 훈련 완료 =======\n')
 print('\n========= 다항회귀 - 50짜리 농어 예측 ========\n')
 print(lrp.predict([[50**2, 50]]))
 
-print('\n========= 웨이트(가중치) / 바이어스(편항) ========\n') # 다합쳐서 '파라미터' 라고 부른다.
+print('\n========= 웨이트(가중치), 바이어스(편항) ========\n') # 다합쳐서 '파라미터' 라고 부른다.
 print('가중치:', lrp.coef_, '\n편향:', lrp.intercept_)
 
 
@@ -151,3 +151,4 @@ print('\n====== 선형회귀 훈련/테스트 스코어 ======\n')
 print('훈련 스코어:', lrp.score(train_poly, train_target))
 print('테스트 스코어', lrp.score(test_poly, test_target))
 
+ 
