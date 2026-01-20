@@ -57,3 +57,42 @@ print(train_poly)
 print('\n====== 인풋 데이터 2제곱 특성공학 =======\n')
 print(train_poly.shape)
 
+print('\n====== get_feature_names_out() =======\n')
+print(poly.get_feature_names_out())
+
+
+# 테스트 데이터도 특성공학 적용
+
+from sklearn.linear_model import LinearRegression
+test_poly = poly.transform(test_input)
+
+# 선형회귀 학습
+
+lr = LinearRegression()
+lr.fit(train_poly, train_target)
+
+# 훈련/테스트스코어 프린트
+
+print('훈련 점수:', lr.score(train_poly, train_target))
+print()
+print('테스트 점수:', lr.score(test_poly, test_target))
+
+# 5제곱까지 해보기
+
+poly = PolynomialFeatures(degree=5, include_bias=False)
+
+poly.fit(train_input)
+train_poly = poly.transform(train_input)
+test_poly = poly.transform(test_input)
+
+print('\n====== 5제곱 특성공학 shape =====\n')
+print(train_poly.shape)
+
+# 학습
+lr.fit(train_poly, train_target)
+
+# 스코어
+
+print('훈련 점수:', lr.score(train_poly, train_target))
+print('테스트 점수:', lr.score(test_poly, test_target))
+
