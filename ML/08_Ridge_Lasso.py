@@ -124,3 +124,66 @@ print(ridge.score(test_scaled, test_target))
 print('\n========= 릿지모델 파라미터 (규제 0.1)=====\n')
 print(ridge.coef_, ridge.intercept_)
 
+# ====================== 라쏘회귀 =======================
+# 손실함수 = MSE + L1 정규항
+
+# 모델 준비
+from sklearn.linear_model import Lasso
+
+# 모델 훈련
+lasso = Lasso()
+
+print('\n====== lasso 모델 학습 시작 =======\n')
+
+start = time.time()
+
+lasso.fit(train_scaled, train_target)
+
+end = time.time()
+
+print('\n====== lasso 모델 학습 종료 =======')
+print('\n훈련시간:', end - start, '초')
+
+
+# 훈련 / 테스트 스코어
+train_score = []
+test_score = []
+
+# 최적의 알파 값 찾기
+alpha_list = [0.001, 0.01, 0.1, 1, 10, 100]
+
+# 찾은 최적의 알파값으로 다시 훈련
+for alpha_P in alpha_list:
+    lasso = Lasso(alpha=alpha_P,)
+    lasso.fit(train_scaled, train_target)
+
+    train_score.append(lasso.score(train_scaled, train_target))
+    test_score.append(lasso.score(test_scaled, test_target))
+
+
+# 다시 훈련한 모델의 훈련 / 테스트 스코어
+
+plt.plot(alpha_list, train_score, marker='o')
+plt.plot(alpha_list, test_score, marker='s')
+plt.xscale('log')
+plt.xlabel('alpha')
+plt.ylabel('R^2')
+plt.legend()
+plt.show()
+
+# 0.1 에서 최적
+
+lasso = Lasso(alpha=0.1)
+lasso.fit(train_scaled, train_target)
+
+print('\n========= 라쏘회귀 규제 0.1 훈련/테스트 스코어 =====\n')
+print(lasso.score(train_scaled,train_target))
+print(lasso.score(test_scaled, test_target))
+
+
+print('\n========= 라쏘모델 파라미터 (규제 0.1)=====\n')
+print(lasso.coef_, ridge.intercept_)
+
+# 모델이 찾은 파라미터 출력
+
+# 웨이트 0인 개수 출력
