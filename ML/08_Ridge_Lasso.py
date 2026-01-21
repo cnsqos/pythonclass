@@ -186,6 +186,7 @@ print('\n========= 라쏘모델 파라미터 (규제 10)=====\n')
 print(lasso.coef_, lasso.intercept_)
 
 # 웨이트 0인 개수 출력
-zero_count = np.sum(lasso.coef_ == 0)
-print('웨이트가 0인 개수:', zero_count)
+print(np.sum(lasso.coef_ == 0))
+print()
+
 
