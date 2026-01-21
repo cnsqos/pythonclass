@@ -151,4 +151,3 @@ print('\n====== 선형회귀 훈련/테스트 스코어 ======\n')
 print('훈련 스코어:', lrp.score(train_poly, train_target))
 print('테스트 스코어', lrp.score(test_poly, test_target))
 
- 

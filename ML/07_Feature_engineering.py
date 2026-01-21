@@ -96,3 +96,5 @@ lr.fit(train_poly, train_target)
 print('훈련 점수:', lr.score(train_poly, train_target))
 print('테스트 점수:', lr.score(test_poly, test_target))
 
+print('\n====== 파라미터 값 확인 ======\n')
+print(lr.coef_, lr.intercept_)
