@@ -154,7 +154,7 @@ alpha_list = [0.001, 0.01, 0.1, 1, 10, 100]
 
 # 찾은 최적의 알파값으로 다시 훈련
 for alpha_P in alpha_list:
-    lasso = Lasso(alpha=alpha_P,)
+    lasso = Lasso(alpha=alpha_P, max_iter=10000)
     lasso.fit(train_scaled, train_target)
 
     train_score.append(lasso.score(train_scaled, train_target))
@@ -173,17 +173,19 @@ plt.show()
 
 # 0.1 에서 최적
 
-lasso = Lasso(alpha=0.1)
+lasso = Lasso(alpha=10)
 lasso.fit(train_scaled, train_target)
 
-print('\n========= 라쏘회귀 규제 0.1 훈련/테스트 스코어 =====\n')
+print('\n========= 라쏘회귀 규제 10 훈련/테스트 스코어 =====\n')
 print(lasso.score(train_scaled,train_target))
 print(lasso.score(test_scaled, test_target))
 
 
-print('\n========= 라쏘모델 파라미터 (규제 0.1)=====\n')
-print(lasso.coef_, ridge.intercept_)
-
 # 모델이 찾은 파라미터 출력
+print('\n========= 라쏘모델 파라미터 (규제 10)=====\n')
+print(lasso.coef_, lasso.intercept_)
 
 # 웨이트 0인 개수 출력
+zero_count = np.sum(lasso.coef_ == 0)
+print('웨이트가 0인 개수:', zero_count)
+
