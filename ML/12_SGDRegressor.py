@@ -48,7 +48,7 @@ Target
 # 데이터 분리(8:2)
 from sklearn.model_selection import train_test_split
 
-X_train, X_test, y_train, y_test = train_test_split()
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=42)
 
 # 모델 준비 / 학습
 from sklearn.linear_model import SGDRegressor
@@ -57,4 +57,6 @@ sgd = SGDRegressor(max_iter=1000, tol=1e-3, random_state=42)
 sgd.fit(X_train, y_train)
 
 # 평가
-print('\n테스트 스코어:', sgd.score())
+print('\n테스트 스코어:', sgd.score(X_test, y_test))
+print('\n훈련 스코어:', sgd.score(X_train, y_train))
+
