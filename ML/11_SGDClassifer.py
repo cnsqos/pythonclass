@@ -117,15 +117,33 @@ plt.show()
 # 100 에포크로 훈련
 
 # 모델 준비
-sc = SGDClassifier(loss='log_loss', max_iter=100, tol=1e-3, random_state=42)
+sc = SGDClassifier(loss='log_loss', max_iter=100, tol=None, random_state=42)
+# tol=le-3 디폴트
+# 손실 개선량 1/1000 보다 작으면 멈춤
 
 # 모델 학습
-
 sc.fit(train_scaled, train_target)
 
 # 학습 스코어
 
+print('\n ======== SGD 학습 스코어 tol=none ========\n')
+print('훈련 스코어:', sc.score(train_scaled, train_target))
+print('테스트 스코어:', sc.score(test_scaled, test_target))
+
+# tol 값 지정해보기 (손실 개선량)
+sc = SGDClassifier(loss='log_loss', 
+                   max_iter=300, # 최대 300 에포크 훈련
+                   tol=1e-4, # 손실 개선이 1/10000 보다 작으면 종료인데,
+                   n_iter_no_change=20, # 20번 까지는 참아라.
+                   random_state=42)
+
+# 훈련
+sc.fit(train_scaled, train_target)
+
+# 스코어
 print('\n ======== SGD 학습 스코어 ========\n')
 print('훈련 스코어:', sc.score(train_scaled, train_target))
 print('테스트 스코어:', sc.score(test_scaled, test_target))
 
+print('\n====== 훈련 에포크 수 ======\n')
+print(sc.n_iter_)
