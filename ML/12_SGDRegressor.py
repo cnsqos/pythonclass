@@ -1,4 +1,6 @@
 
+import numpy as np
+np.set_printoptions(threshold=np.inf, linewidth=500, precision=3)
 
 # 데이터셋 로드
 from sklearn.datasets import load_diabetes
@@ -53,10 +55,14 @@ X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random
 # 모델 준비 / 학습
 from sklearn.linear_model import SGDRegressor
 
-sgd = SGDRegressor(max_iter=1000, tol=1e-3, random_state=42)
+sgd = SGDRegressor(max_iter=13000, tol=1e-4, n_iter_no_change=20, random_state=42)
 sgd.fit(X_train, y_train)
 
 # 평가
-print('\n테스트 스코어:', sgd.score(X_test, y_test))
 print('\n훈련 스코어:', sgd.score(X_train, y_train))
+print('\n테스트 스코어:', sgd.score(X_test, y_test))
+
+print('\n파라미터', sgd.coef_, sgd.intercept_)
+print('\n실행된 에포크', sgd.n_iter_)
+
 
