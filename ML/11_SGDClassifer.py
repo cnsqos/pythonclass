@@ -112,3 +112,20 @@ plt.ylabel('accuracy')
 plt.legend()
 plt.show()
 
+
+# 100 에포크가 적당해 보인다.
+# 100 에포크로 훈련
+
+# 모델 준비
+sc = SGDClassifier(loss='log_loss', max_iter=100, tol=1e-3, random_state=42)
+
+# 모델 학습
+
+sc.fit(train_scaled, train_target)
+
+# 학습 스코어
+
+print('\n ======== SGD 학습 스코어 ========\n')
+print('훈련 스코어:', sc.score(train_scaled, train_target))
+print('테스트 스코어:', sc.score(test_scaled, test_target))
+
