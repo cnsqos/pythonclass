@@ -45,7 +45,7 @@ test_scaled = ss.transform(test_input)
 
 import numpy as np
 from sklearn.linear_model import LogisticRegression
-lr = LogisticRegression(C=20, max_iter=1000)
+lr = LogisticRegression(C=20, multi_class='multinomial', solver='lbfgs', max_iter=1000)
 lr.fit(train_scaled, train_target)
 print('\n ======== 로지스틱리그레션 학습 완료 ==========\n')
 
@@ -81,4 +81,3 @@ print('\n ====== 소프트맥스 함수에 z 값 대입 ========\n')
 
 proba = softmax(decision, axis=1)
 print(np.round(proba, decimals=3))
-
