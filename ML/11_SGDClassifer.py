@@ -49,3 +49,66 @@ sc.fit(train_scaled, train_target)
 # 데이터 한개에 업데이트 한 번
 # max_iter = 10 >> 10 에포크 (전체 데이터 10번 순화)
 
+print('\n ======== SGD 학습 스코어 ========\n')
+print('훈련 스코어:', sc.score(train_scaled, train_target))
+print('테스트 스코어:', sc.score(test_scaled, test_target))
+
+
+# 추가 학습 가능 (온라인 학습 가능 모델)
+# 1 에포크 학습
+
+print('\n ======== SGD 추가 학습 1회차 ========\n')
+
+sc.partial_fit(train_scaled, train_target)
+print('훈련 스코어:', sc.score(train_scaled, train_target))
+print('테스트 스코어:', sc.score(test_scaled, test_target))
+
+
+print('\n ======== SGD 추가 학습 2회차 ========\n')
+
+sc.partial_fit(train_scaled, train_target)
+print('훈련 스코어:', sc.score(train_scaled, train_target))
+print('테스트 스코어:', sc.score(test_scaled, test_target))
+
+# import pandas as pd
+import numpy as np
+# import sklearn
+# import scipy
+
+# print("pandas version:", pd.__version__)
+# print("numpy version:", np.__version__)
+# print("scikit-learn version:", sklearn.__version__)
+# print("scipy version:", scipy.__version__)
+
+# pip install --upgrade pandas
+# pip install --upgrade numpy
+# pip install --upgrade scikit-learn
+# pip install --upgrade scipy
+
+#========================================================
+
+# 1 에포크마다 스코어 상향 확인 그래프
+
+sc = SGDClassifier(loss='log_loss', random_state=42)
+
+train_score = []
+test_score = []
+
+classes = np.unique(train_target)
+
+import matplotlib.pyplot as plt
+
+for _ in range(0, 300):
+
+    sc.partial_fit(train_scaled, train_target, classes=classes)
+    train_score.append(sc.score(train_scaled, train_target))
+    test_score.append(sc.score(test_scaled, test_target))
+
+plt.plot(train_score, label='train')
+plt.plot(test_score, label='test')
+plt.title('SGDClassifier Score - 300 epochs')
+plt.xlabel('epoch')
+plt.ylabel('accuracy')
+plt.legend()
+plt.show()
+
