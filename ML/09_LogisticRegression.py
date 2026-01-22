@@ -1,7 +1,7 @@
 import pandas as pd
 
-fish = pd.read_csv('https://bit.ly/fish_csv_data')
-fish.to_csv('./data/fish_data.csv', index=False)
+# fish = pd.read_csv('https://bit.ly/fish_csv_data')
+# fish.to_csv('./data/fish_data.csv', index=False)
 
 fish = pd.read_csv('./data/fish_data.csv')
 
