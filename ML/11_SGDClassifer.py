@@ -137,13 +137,14 @@ sc = SGDClassifier(loss='log_loss',
                    n_iter_no_change=20, # 20번 까지는 참아라.
                    random_state=42)
 
-# 훈련
+# 모델 학습
 sc.fit(train_scaled, train_target)
 
-# 스코어
+# 학습 스코어
 print('\n ======== SGD 학습 스코어 ========\n')
 print('훈련 스코어:', sc.score(train_scaled, train_target))
 print('테스트 스코어:', sc.score(test_scaled, test_target))
 
 print('\n====== 훈련 에포크 수 ======\n')
 print(sc.n_iter_)
+
