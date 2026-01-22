@@ -62,5 +62,23 @@ proba = lr.predict_proba(test_scaled[:5])
 print(np.round(proba, decimals=3))
 
 print('\n====== 클래스 종류 ======\n')
-
 print('\n클래스 순서:', lr.classes_)
+print()
+
+# 파라미터 5 + 1 ==> 7세트
+# 각 클래스별로 선형 방정식 존재
+print('\n ===== 파라미터 개수 =======\n')
+print(lr.coef_.shape, lr.intercept_.shape)
+
+print('\n ===== 상위 5개행 클래스별 z값 출력 =======\n')
+decision = lr.decision_function(test_scaled[:5])
+print(np.round(decision, decimals=2))
+
+
+from scipy.special import softmax
+
+print('\n ====== 소프트맥스 함수에 z 값 대입 ========\n')
+
+proba = softmax(decision, axis=1)
+print(np.round(proba, decimals=3))
+
