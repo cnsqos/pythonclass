@@ -71,6 +71,12 @@ print()
 
 rbf_clf = SVC(kernel='rbf', C=1000, gamma=10, random_state=42)
 # gamma 값이 높을 수록 (과적합 위험)
+
+'''
+C - 모델이 오류를 얼마나 용인할지 결정 (클수록 용인 안함)
+gamma - 한 점이 다른 점에 영향을 미치는 거리 (클수록 영향 범위 작음 -> 민감)
+'''
+
 rbf_clf.fit(X_train, y_train)
 y_pred_rbf = rbf_clf.predict(X_test_sc)
 print()
@@ -110,6 +116,38 @@ def plot_decision_boundary(model, X_sc, y, title):
 
 # ======================================================
 
-plot_decision_boundary(lin_clf, X_train_sc, y_train, 'LinearSVC (trian)')
-plot_decision_boundary(rbf_clf, X_train_sc, y_train, 'RBF SVC (trian)')
+# plot_decision_boundary(lin_clf, X_train_sc, y_train, 'LinearSVC (trian)')
+# plot_decision_boundary(rbf_clf, X_train_sc, y_train, 'RBF SVC (trian)')
+print()
+
+# =========================================
+
+x = np.linspace(-2, 2, 5)
+x = np.linspace(-2, 2, 5)
+print(x)
+print(y)
+print('\n==============================\n')
+
+xx, yy = np.meshgrid(x, y)
+
+print(xx)
+print('\n==============================\n')
+print(yy)
+print('\n==============================\n')
+print(xx.ravel())
+print('\n==============================\n')
+print(yy.ravel())
+print('\n==============================\n')
+print(np.c_[xx.ravel(), yy.ravel()])
+print('\n==============================\n')
+print(rbf_clf.predict(np.c_[xx.ravel(), yy.ravel()]))
+print('\n==============================\n')
+print(rbf_clf.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape))
+Z = rbf_clf.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+print('\n==============================\n')
+plt.contourf(xx, yy, Z)
+plt.show()
+
+
+
 
