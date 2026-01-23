@@ -84,3 +84,4 @@ print('테스트 스코어:', dt.score(test_scaled, test_target))
 plt.figure(figsize=(20, 15))
 plot_tree(dt, filled=True, feature_names=['alcohol','sugar','pH'])
 plt.show()
+
