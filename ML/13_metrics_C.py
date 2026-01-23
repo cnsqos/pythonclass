@@ -86,7 +86,7 @@ Recall = TP / (TP + Fn)
 FN(놓친 악성)이 줄어들 수록 Recall 업
 
 ====================================
-위양성률 (False, Positive Rage, FPR)
+위양성률 (False Positive Rate, FPR)
 FPR = FP / (FP + TN)
 
 스팸메일 아닌데 스팸메일로 분류한 비율
@@ -124,5 +124,21 @@ support - 해당 클래스의 실제 샘플 개수 (데이터 분포 확인용)
 
 accuracy - 전체 샘플 중에서 맞춘 비율 (정확도)
 
+macro avg
+클래스별 지표(precision, recall, f1)를 단순 평균.
+클래스별 비율이 불균형일 때 '클래스마다 동일한 중요도'를 줌.
+
+weighted avg
+클래스별 지표를 support(샘플수)로 가중 평균
+데이터 분포를 반영해서 평균 내므로 accuracy와 비슷한 경향
+
 '''
+
+# ROC 곡선
+# 모든 가능한...
+
+RocCurveDisplay.from_predictions(y_test, y_pred)
+plt.title('ROC Curve(LogisticRegression)')
+plt.show()
+
 
