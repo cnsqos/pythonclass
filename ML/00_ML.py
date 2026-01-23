@@ -25,7 +25,7 @@ KNeighborsRegressor (예측) - 가장 가까운 이웃들의 평균으로 예측
 
 
 <Ridge, Lassso> 릿지, 라쏘 회귀
-- Ridge (예측) - 파라미터들을 규제하여 안정적인 모델 학습 가능.
+- Ridge (예측/회귀) - 파라미터들을 규제하여 안정적인 모델 학습 가능.
     선형회귀 손실함수(MSE)에 정규항 L2를 추가.
     파라미터를 조정하지만 0으로 만들진 않음.
 
@@ -71,9 +71,20 @@ KNeighborsRegressor (예측) - 가장 가까운 이웃들의 평균으로 예측
 
 <score>
 - 분류 - 맞춘개수 / 테스트개수
-- 예측 - R^2 (결정계수)
+- 회귀(예측) - R^2 (결정계수)
+
+<metrics> 여러가지 성능 평가지표
+- 분류 - accuracy_score (정확도), precision_score (정밀도), recall_score (재현율), f1_score (조화평균), roc_auc_score(auc 면적)
+                                             
+        confusion_matrix, classification_report
+            
+        재현율 vs 위양성률
+
+
+- 회귀 - mean_absolute_error (MAE) 평균 절대 오차
+        mean_squared_error (MSE) 평균 제곱 오차
+        np.sqrt(mean_squared_error) (RMSE) 루트 평균 제곱 오차
+        r2_score(결정계수)
+        score (결정계수)
 
 '''
-
-
-

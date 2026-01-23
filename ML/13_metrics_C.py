@@ -135,7 +135,8 @@ weighted avg
 '''
 
 # ROC 곡선
-# 모든 가능한...
+# 모든 가능한 임계점들을 넣어보면서 재현율, 위양성률을 계산하여 그래프 그림.
+# AUC = ROC 곡선 아래 면적 (1에 가까울수록 좋음)
 
 RocCurveDisplay.from_predictions(y_test, y_pred)
 plt.title('ROC Curve(LogisticRegression)')
