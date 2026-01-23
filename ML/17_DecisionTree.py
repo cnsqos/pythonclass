@@ -23,8 +23,7 @@ from sklearn.model_selection import train_test_split
 
 
 train_input, test_input, train_target, test_target = train_test_split(
-    data, target, test_size=0.2, random_state=42, stratify=target
-)
+    data, target, test_size=0.2, random_state=42)
 
 # 스케일링
 from sklearn.preprocessing import StandardScaler
@@ -55,6 +54,7 @@ from sklearn.tree import DecisionTreeClassifier
 dt = DecisionTreeClassifier(random_state=42)
 dt.fit(train_scaled, train_target)
 
+
 # 훈련 / 테스트 스코어
 print('\n========= 결정나무 훈련/ 테스트스코어 =========\n')
 print('훈련 스코어:', dt.score(train_scaled, train_target))
@@ -63,7 +63,24 @@ print('테스트 스코어:', dt.score(test_scaled, test_target))
 import matplotlib.pyplot as plt
 from sklearn.tree import plot_tree
 
-plt.figure(figsize=(10,7))
-plot_tree(dt)
-plt.show()
+# plt.figure(figsize=(10,7))
+# plot_tree(dt)
+# plt.show()
 
+# plt.figure(figsize=(10,7))
+# plot_tree(dt, max_depth=1, filled=True,
+#           feature_names=['alcohol','sugar','pH'])
+# plt.show()
+
+# 트리 깊이를 3으로 제한
+dt = DecisionTreeClassifier(max_depth=3, random_state=42)
+dt.fit(train_scaled, train_target)
+
+
+print('\n========= 깊이 3 나무 스코어 =========\n')
+print('훈련 스코어:', dt.score(train_scaled, train_target))
+print('테스트 스코어:', dt.score(test_scaled, test_target))
+
+plt.figure(figsize=(20, 15))
+plot_tree(dt, filled=True, feature_names=['alcohol','sugar','pH'])
+plt.show()
