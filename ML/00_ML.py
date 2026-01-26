@@ -63,7 +63,7 @@ KNeighborsRegressor (예측) - 가장 가까운 이웃들의 평균으로 예측
 <Tree 계열>
     DecisionTree - 노드를 분할하며 데이터 분류, 지니불순도가 가장 작아지는 임계값(분할 조건) 선택
             - DecisionTree Classifier - 분류된 노드의 샘플들의 클래스 다수결로 결정
-            - DecisionTree Regressor - 분류된 노드의 샘플들의 평균으로 결정 
+            - DecisionTree Regressor - 분류된 노드의 샘플들의 평균으로 결정 (MSE 낮을때)
                 
 
 

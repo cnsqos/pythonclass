@@ -85,3 +85,38 @@ plt.figure(figsize=(20, 15))
 plot_tree(dt, filled=True, feature_names=['alcohol','sugar','pH'])
 plt.show()
 
+
+# 트리 모델은 스케일링을 할 필요가 없다
+
+dt = DecisionTreeClassifier(max_depth=3, random_state=42)
+dt.fit(train_input, train_target)
+
+print('\n==== 노 스케일링 깊이(3) 스코어 ====\n')
+print('훈련 스코어:', dt.score(train_input, train_target))
+print('테스트 스코어:', dt.score(test_input, test_target))
+
+
+# 특성별로 중요도를 뽑아보기 (합해서 1)
+# 불순도 감소에 누가 가장 많이 기여했는가?
+print('\n========== 특성별 중요도 ==============\n')
+print(dt.feature_importances_)
+
+# 정보이득이 0.0005 보다 적으면 더 이상 분할 하지 마라.
+# 디폴트 값 = 0
+dt = DecisionTreeClassifier(min_impurity_decrease=0.0005, random_state=42)
+dt.fit(train_input, train_target)
+
+'''
+디폴트 값은 사실상 제약이 없음. (과적합 머신)
+DecisionTreeClassifier(
+    max_impurity,               # 무제한
+    min_impurity_decrease=0.0,  # 아주 미세한 개선도 허용
+    min_samples_split=2,        # 샘플 2개만 있어도 분할 시도
+    min_samples_leaf=1          # 리프에 1개 샘플 허용
+)
+'''
+
+print('\n==== min_impurity_decrease=0.0005 스코어 ===\n')
+print('훈련 스코어:', dt.score(train_input, train_target))
+print('테스트 스코어:', dt.score(test_input, test_target))
+
