@@ -120,3 +120,6 @@ print('\n==== min_impurity_decrease=0.0005 스코어 ===\n')
 print('훈련 스코어:', dt.score(train_input, train_target))
 print('테스트 스코어:', dt.score(test_input, test_target))
 
+plt.figure(figsize=(20,15))
+plot_tree(dt, filled=True, feature_names=['alcohol', 'sugar', 'pH'])
+plt.show()
