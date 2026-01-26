@@ -123,3 +123,47 @@ print('테스트 스코어:', dt.score(test_input, test_target))
 plt.figure(figsize=(20,15))
 plot_tree(dt, filled=True, feature_names=['alcohol', 'sugar', 'pH'])
 plt.show()
+
+
+# ================= 다중 분류 ===============
+
+fish = pd.read_csv('data/fish_data.csv')
+print(fish.head())
+print()
+
+# 물고기 종류 확인(7개)
+print(pd.unique(fish['Species']))
+print()
+
+# 인풋 데이터
+fish_input = fish.drop(columns=['Species'])
+
+# 타겟 데이터
+fish_target = fish['Species']
+
+# 훈련 / 테스트 셋 분리
+train_input, test_input, train_target, test_target = train_test_split(
+    fish_input,
+    fish_target,
+    test_size=0.2,
+    random_state=42,
+    stratify=fish_target
+)
+
+# 모델 훈련
+dt = DecisionTreeClassifier(max_depth=50, random_state=42)
+dt.fit(train_input, train_target)
+
+# 모델 평가 (score)
+print('훈련 스코어:', dt.score(train_input, train_target))
+print('테스트 스코어:', dt.score(test_input, test_target))
+
+# 트리 그래프
+plt.figure(figsize=(20, 15))
+plot_tree(
+    dt,
+    feature_names=train_input.columns,
+    class_names=dt.classes_,
+    filled=True
+)
+plt.show()
