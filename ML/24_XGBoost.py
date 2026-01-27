@@ -27,27 +27,73 @@ from xgboost import XGBClassifier
 
 xgb = XGBClassifier(
     # 기본성능/과적합 밸런스 관련
-    n_estimators=2000,
+    n_estimators=2000,      # early stopping 쓸 것이기 때문에 넉넉히 크게
     learning_rate=0.05,
     max_depth=4,            # 나무 최대 깊이
     min_child_weight=1,     # 분할 후 노드에 '최소한 이정도 정보량은 있어야 한다'
     gamma=0.0,              # 분할 최소 이득 (규제)
     subsample=0.8,          # row 샘플링 (트리 하나 만들 때마다 매번 다른 80% 샘플을 뽑아 사용)
     colsample_bytree=0.8,   # feature 샘플링 (트리 하나를 만들 때, 전체 특성 중 80%만 사용)
+
+    # 규제(정규화)
+    reg_lambda=1.0,         # L2    # 높을 수록 leaf weight가 커지는 걸 강하게 억제
+    reg_alpha=0.0,          # L1    # 높을 수록 leaf weight를 0으로 보내는 경향
+
+    # 학습 속도/ 알고리즘 선택
+    tree_method="hist",     # 히스토그램 기반
+    early_stopping_rounds=50,
+    n_jobs=-1,
+    random_state=42,
+
+
+    # 분류 설정
+    objective="binary:logistic", # 이진분류 문제임을 명시    # 다중분류 - multi:softprob
+    eval_metric="logloss"       # early stopping 기준지표 (이 지표를 보고 판단)
+
 )
 
+# ===========================================
 # 3) 학습
+# early_stopping_rounds 는 eval_set 있어야 작동
+# 검증 점수가 지정 라운드 동안 개선 안되면 멈춤
 
+xgb.fit(
+    X_tr, y_tr,
+    eval_set=[(X_val, y_val)],
+    verbose=100                     # 100번마다 로그 출력
+)
 
 
 # 4) 평가
-
-
 # 확률 / 예측
+proba = xgb.predict_proba(X_test)[:, 1]
+pred = (proba >= 0.5).astype(int)
+
+acc = accuracy_score(y_test, pred)
+auc = roc_auc_score(y_test, proba)
+
+print("\n======== [XGBoost 테스트 성능] ========\n")
+print("Accuracy:", acc)
+print("ROC-AUC:", auc)
+
+print("\n======== [Confusion Matrix] ========\n")
+print(confusion_matrix(y_test, pred))
+
+print("\n======== [Classification Report] ========\n")
+print(classification_report(y_test, pred, digits=4))
 
 
 # 특성 중요도 확인
+print("\n======== [Feature Importances] ========\n") 
+print(pd.Series(xgb.feature_importances_, index=X.columns). sort_values(ascending=False))
 
 
 # 5) ROC Curve 그리기
+
+import matplotlib.pyplot as plt
+from sklearn.metrics import RocCurveDisplay
+
+RocCurveDisplay.from_predictions(y_test, proba)
+plt.title('XGBoost ROC Curve')
+plt.show()
 
