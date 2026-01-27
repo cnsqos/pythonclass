@@ -54,3 +54,23 @@ print('\n========== (옵션추가) gb 훈련/검증 점수  ===========\n')
 
 print(np.mean(scores['train_score']), np.mean(scores['test_score']))
 
+# 모델 학습
+gb.fit(train_input, train_target)
+
+# 모델 평가
+print('\n======== GBM 훈련/테스트 스코어 ========\n')
+print('훈련 스코어:', gb.score(train_input, train_target))
+print('테스트 스코어:', gb.score(test_input, test_target))
+
+# 특성 중요도
+print('\n특성 중요도:', gb.feature_importances_)
+
+
+# ====================================================
+
+'''
+데이터를 255개의 구간에 균등계수로 할당 (기본 max_bin=255)
+각 구간의 오른쪽 값을 기반으로 분할을 계산
+
+'''
+
