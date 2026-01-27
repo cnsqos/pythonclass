@@ -74,3 +74,25 @@ print('\n특성 중요도:', gb.feature_importances_)
 
 '''
 
+from sklearn.ensemble import HistGradientBoostingClassifier
+
+hgb = HistGradientBoostingClassifier(max_bins=128,      # 구간 개수
+                                     max_iter=300,      # 얕은 트리 개수
+                                     max_depth=3,       # 트리 최대 깊이
+                                     learning_rate=0.1, # 학습률
+                                     random_state=42)
+
+scores = cross_validate(hgb, train_input, train_target,
+                        return_train_score=True, n_jobs=-1)
+
+print('\n========== (옵션추가) hgb 훈련/검증 점수  ===========\n')
+
+print(np.mean(scores['train_score']), np.mean(scores['test_score']))
+
+# 모델 학습
+hgb.fit(train_input, train_target)
+
+# 모델 평가
+print('\n======== GBM 훈련/테스트 스코어 ========\n')
+print('훈련 스코어:', hgb.score(train_input, train_target))
+print('테스트 스코어:', hgb.score(test_input, test_target))
