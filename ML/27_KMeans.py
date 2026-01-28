@@ -37,7 +37,7 @@ def draw_fruits(arr, ratio=1):
     rows = int(np.ceil(n/10)) # ceil : 올림
     # 한 줄밖에 없으면 열 개수는 샘플개수만큼, 그렇지 않으면 10개씩
     cols = n if rows < 2 else 10
-    fig, axs= plt.subplot(rows, cols,
+    fig, axs= plt.subplots(rows, cols,
                           figsize=(cols*ratio, rows*ratio), squeeze=False)
     
     for i in range(rows):
@@ -48,4 +48,47 @@ def draw_fruits(arr, ratio=1):
     plt.show()
 
 
-    
+# 라벨이 0인 군집 - (112, 100, 100)
+print(fruits[km.labels_==0].shape)
+
+# 라벨별로 출력해보기
+# draw_fruits(fruits[km.labels_==0])
+
+# draw_fruits(fruits[km.labels_==1])
+
+# draw_fruits(fruits[km.labels_==2])
+
+# 분류해 놓은 세 군집 사진들의 픽셀별 평균
+draw_fruits(km.cluster_centers_.reshape(-1, 100, 100), ratio=3)
+
+# 인덱스 100번 사진의 클러스터별 중심거리
+print(km.transform(fruits_2d[100:101]))
+
+# 인덱스 100번 사진이 무슨 클러스터인지 확인
+print(km.predict(fruits_2d[100:101]))
+
+# 실제로 무슨 과일인지 확인
+draw_fruits(fruits[100:101])
+
+# 알고리즘 반복 횟수 (중심점이 몇 번 옮겨갔을까?)
+print(km.n_iter_) # 4번
+
+'''
+실제에서는 클러스터가 몇개인지 알 수 없다.
+클러스터를 늘려가면서 '이너셔' 변화를 확인해 봐야 한다.
+이너셔 = 데이터별로 "클러스터 중심과의 거리 제곱합"
+이너셔 작아지는 속도가 줄어드는 지점이 적정 클러스터이다. (엘보우 방법)
+'''
+
+# 최적의 K 찾기
+inertia = []
+for k in range(2, 7):
+    km = KMeans(n_clusters=k, random_state=42)
+    km.fit(fruits_2d)
+    inertia.append(km.inertia_)
+
+plt.plot(range(2,7), inertia)
+plt.xlabel('k')
+plt.ylabel('inertia')
+plt.show()
+
