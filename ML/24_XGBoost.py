@@ -42,7 +42,7 @@ xgb = XGBClassifier(
     # 학습 속도/ 알고리즘 선택
     tree_method="hist",     # 히스토그램 기반
     early_stopping_rounds=50,
-    n_jobs=-1,
+    n_jobs=-1, 
     random_state=42,
 
 
@@ -96,4 +96,11 @@ from sklearn.metrics import RocCurveDisplay
 RocCurveDisplay.from_predictions(y_test, proba)
 plt.title('XGBoost ROC Curve')
 plt.show()
+
+'''
+학습 속도/알고리즘: tree_method (exact/approx/hist)
+모델 복잡도 : max_depth, min_child_weight, gamma
+랜덤화로 일반화: subsample, colsample_bytree
+정규화: reg_allpha(L1), reg_lambda(L2)
+'''
 
