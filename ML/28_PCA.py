@@ -69,9 +69,9 @@ print(fruits_inverse.shape) # 300, 10000
 fruits_reconstruct = fruits_inverse.reshape(-1, 100, 100)
 
 # 100장씩 그리기
-for start in [0, 100, 200]:
-    draw_fruits(fruits_reconstruct[start:start+100])
-    print()
+# for start in [0, 100, 200]:
+#     draw_fruits(fruits_reconstruct[start:start+100])
+#     print()
 
 
 # 설명된 분산 - 50개의 주성분이 원본을 얼마나 잘 표현 했을까?
@@ -81,5 +81,105 @@ print(pca.explained_variance_ratio_)
 print('\n======= 50개 성분의 원본 설명률 ======\n')
 print(np.sum(pca.explained_variance_ratio_)) # 92%
 
+# 설명된 분산 그래프로 확인
+# 주성분 10개만 있어도 될 것 같다.
 plt.plot(pca.explained_variance_ratio_)
 plt.show()
+
+# ==========================================
+
+# 차원을 축소해서 분류 시키기(로지스틱 리그레션)
+# 원본으로도 분류
+# 두 개를 비교 (누가 더 빠른가, 스코어는 어떤가?)
+
+from sklearn.linear_model import LogisticRegression
+
+lr = LogisticRegression()
+
+# 타겟 데이터 생성 (사과, 파인애플, 바나나)
+target = np.array([0] * 100 + [1] * 100 + [2] * 100)
+
+
+
+from sklearn.model_selection import cross_validate
+# 원본 데이터 교차검증
+
+scores = cross_validate(lr, fruits_2d, target)
+
+print('\n======= 교차검증 결과 =======\n')
+print(scores)
+
+print('\n======= 원본 교차검증 평균 점수 =======\n')
+print(np.mean(scores['test_score']))
+
+print('\n======= 원본 교차검증 평균 시간 =======\n')
+print(np.mean(scores['fit_time']))
+
+
+# 50차원으로 축소한 데이터 교차검증
+scores = cross_validate(lr, fruits_2d, target)
+
+print('\n======= 교차검증 결과 =======\n')
+print(scores)
+
+print('\n======= 50차원 교차검증 평균 점수 =======\n')
+print(np.mean(scores['test_score']))
+
+print('\n======= 50차원 교차검증 평균 시간 =======\n')
+print(np.mean(scores['fit_time']))
+
+
+# =====================================================
+
+# 소수로 주면 비율로 인식함 - 원본의 50%를 설명할 수 있는 주성분 개수로 찾아라.
+pca = PCA(n_components=0.5)
+pca.fit(fruits_2d)
+
+print('\n======== (50%를 위해) 찾은 주성분 개수 =======\n')
+print(pca.n_components_) # 2개만 있어도 원본의 50% 설명 가능
+
+# 차원 축소
+fruits_pca = pca.transform(fruits_2d)
+print(fruits_pca.shape)
+
+
+# 20차원으로 축소한 데이터 교차검증
+scores = cross_validate(lr, fruits_2d, target)
+
+print('\n======= 교차검증 결과 =======\n')
+print(scores)
+
+print('\n======= 2차원 교차검증 평균 점수 =======\n')
+print(np.mean(scores['test_score'])) # 0.99
+
+print('\n======= 2차원 교차검증 평균 시간 =======\n')
+print(np.mean(scores['fit_time'])) 
+
+# ===================================================
+
+# KMeans (2차원 축소한) 과일사진(데이터) 분류하기
+
+from sklearn.cluster import KMeans
+km = KMeans(n_clusters=3, random_state=42)
+km.fit(fruits_pca) # 2차원으로 축소된 데이터 학습
+
+# 결과 확인
+print(np.unique(km.labels_, return_counts=True))
+print()
+
+# 라벨 확인
+print(km.labels_)
+
+# 그림 그리기
+# for label in range(0, 3):
+#     draw_fruits(fruits[km.labels_ == label])
+
+
+# 2차원으로 축소된 좌표로 산점도 그려보기
+
+for label in range(0, 3):
+    data = fruits_pca[km.labels_==label]
+    plt.scatter(data[:,0], data[:,1])
+plt.legend(['apple', 'banana', 'pineapple'])
+plt.show()
+
