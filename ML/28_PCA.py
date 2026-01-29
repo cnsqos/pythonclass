@@ -78,3 +78,8 @@ for start in [0, 100, 200]:
 print('\n======= 주 성분별 설명 퍼센티지 ======\n')
 print(pca.explained_variance_ratio_)
 
+print('\n======= 50개 성분의 원본 설명률 ======\n')
+print(np.sum(pca.explained_variance_ratio_)) # 92%
+
+plt.plot(pca.explained_variance_ratio_)
+plt.show()
